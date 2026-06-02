@@ -16,19 +16,19 @@ namespace WpfApp4
     /// </summary>
     public partial class MainWindow : Window
     {
-        MainVM Base = new MainVM();
+        private MainVM Base = new();
         public MainWindow()
         {
             InitializeComponent();
             DataContext = Base;
         }
-        public static object _lock = new object();
+        public static object _lock = new();
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            runTask();
-            runTask(false);
+            RunTask();
+            RunTask(false);
         }
-        private void runTask(bool isAdd = true)
+        private void RunTask(bool isAdd = true)
         {
             Task.Run(() =>
             {
