@@ -22,5 +22,18 @@ namespace WpfApp4
                 }
             }
         }
+        private int _id1 = 1000;
+        public int ID1
+        {
+            get { return _id1; }
+            set
+            {
+                if (!Equals(_id1, value))
+                {
+                    _id1 = value;
+                    OnPropertyChanged("ID1");
+                }
+            }
+        }
     }
 }

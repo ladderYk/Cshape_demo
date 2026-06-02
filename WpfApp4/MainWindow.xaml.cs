@@ -23,24 +23,81 @@ namespace WpfApp4
             DataContext = Base;
         }
         public static object _lock = new();
+        public static object _lock1 = new();
+
         private void Button_Click(object sender, RoutedEventArgs e)
         {
+            Base.ID = 0;
             RunTask();
-            RunTask(false);
+            RunTask(true, false);
         }
-        private void RunTask(bool isAdd = true)
+        private void Button_Click_2(object sender, RoutedEventArgs e)
+        {
+            Base.ID = 0;
+            RunTask(false);
+            RunTask(false, false);
+        }
+        private void RunTask(bool isLock = true, bool isAdd = true)
         {
             Task.Run(() =>
             {
                 for (int i = 0; i < 100000; i++)
                 {
-                    lock (_lock)
+                    if (isLock)
+                    {
+                        lock (_lock)
+                        {
+                            if (isAdd) Base.ID += 3;
+                            else Base.ID -= 3;
+                        }
+                    }
+                    else
                     {
                         if (isAdd) Base.ID += 3;
                         else Base.ID -= 3;
                     }
                 }
             });
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            Base.ID1 = 1000;
+            for (int i = 0; i < 10; i++)
+            {
+                RunTask1(10);
+            }
+        }
+        private void RunTask1(int num, bool isLock = true)
+        {
+            Task.Run(() =>
+            {
+                for (int i = 0; i < (1000 / num); i++)
+                {
+                    if (isLock)
+                    {
+                        lock (_lock1)
+                        {
+                            Base.ID1--;
+                        }
+                    }
+                    else
+                    {
+                        Base.ID1--;
+                    }
+                }
+            });
+        }
+
+
+
+        private void Button_Click_3(object sender, RoutedEventArgs e)
+        {
+            Base.ID1 = 1000;
+            for (int i = 0; i < 10; i++)
+            {
+                RunTask1(10, false);
+            }
         }
     }
 }

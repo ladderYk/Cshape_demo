@@ -6,8 +6,17 @@
         xmlns:local="clr-namespace:WpfApp4"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
+    <StackPanel>
+        
     <WrapPanel>
-        <Button Click="Button_Click">测试</Button>
+            <Button Click="Button_Click">测试并发</Button>
+            <Button Click="Button_Click_2">测试非并发</Button>
         <TextBlock Text="{Binding ID}"/>
-    </WrapPanel>
+        </WrapPanel>
+        <WrapPanel>
+            <Button Click="Button_Click_1">测试2</Button>
+            <Button Click="Button_Click_3">测试2非并发</Button>
+            <TextBlock Text="{Binding ID1}"/>
+        </WrapPanel>
+    </StackPanel>
 </Window>
